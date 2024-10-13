@@ -46,31 +46,54 @@ This command will start all the services defined in your `docker-compose.yml` fi
 
 ### Setting up Grafana Dashboards
 
-After initializing the Docker containers, follow these steps to set up the Grafana dashboards:
+After initializing the Docker containers, set up the Grafana dashboards:
 
-1. Open a web browser and go to `http://localhost:3000`.
-2. Log in to Grafana using the default credentials:
-   - Username: `admin`
-   - Password: `admin`
-3. Create two data sources:
-   a. MySQL:
-      - Name: `MySQL`
-      - Host: `mysql:3306`
-      - Database: `ethereum_deposits`
-      - User: `amrit`
-      - Password: `amrit@123`
-   b. Prometheus:
-      - Name: `Prometheus`
-      - URL: `http://host.docker.internal:9090`
-4. Import the dashboard JSON files:
-   - Navigate to the `docker/Dashboards` folder.
-   - In Grafana, go to "Dashboards" > "Import".
-   - Import `SystemMetrics.json`:
-     - Select Prometheus as the data source.
-   - Import `DepositFees.json`:
-     - Select MySQL as the data source.
+<details>
+<summary>1. Accessing Grafana</summary>
 
-Note: You can modify the MySQL credentials in the `docker-compose.yml` file if needed.
+- Open `http://localhost:3000` in your web browser
+- Log in with default credentials:
+  - Username: `admin`
+  - Password: `admin`
+
+</details>
+
+<details>
+<summary>2. Creating Data Sources</summary>
+
+Create two data sources:
+
+a. MySQL:
+   - Name: `MySQL`
+   - Host: `mysql:3306`
+   - Database: `ethereum_deposits`
+   - User: `amrit`
+   - Password: `amrit@123`
+
+b. Prometheus:
+   - Name: `Prometheus`
+   - URL: `http://host.docker.internal:9090`
+
+</details>
+
+<details>
+<summary>3. Importing Dashboards</summary>
+
+1. Navigate to `docker/Dashboards` folder
+2. In Grafana, go to "Dashboards" > "Import"
+3. Import `SystemMetrics.json`:
+   - Select Prometheus as the data source
+4. Import `DepositFees.json`:
+   - Select MySQL as the data source
+
+</details>
+
+<details>
+<summary>Note</summary>
+
+You can modify the MySQL credentials in the `docker-compose.yml` file if needed.
+
+</details>
 
 ## Running the Java Application Directly
 
@@ -79,7 +102,7 @@ If you prefer to run the Ethereum Deposit Tracker as a standalone Java applicati
 ### Prerequisites
 
 Ensure you have the following installed on your system:
-- Java Development Kit (JDK)
+- JDK 20+
 - Maven
 
 ### Database Setup
@@ -153,11 +176,37 @@ The Ethereum Deposit Tracker is an application designed to monitor and record Et
 
 ### Getting Updates on Deposit Transactions
 
-To receive updates on each deposit transaction, join our Telegram channel:
+This application uses a Telegram bot to provide real-time notifications about new deposit transactions.
 
-https://t.me/+8FPRCgrcWzs3MGJl
+<details>
+<summary>Setting Up Telegram Notifications</summary>
 
-This channel will provide real-time notifications about new deposit transactions tracked by the application.
+1. Create a Telegram bot via [@BotFather](https://t.me/botfather)
+2. Update `TelegramNotifier.java` with your bot token
+3. Set the chat ID for receiving notifications
+4. Start the application to enable notifications
+
+</details>
+
+<details>
+<summary>Notification Details</summary>
+
+- Receive updates for each new deposit transaction
+- Notifications include transaction ID, amount, and timestamp
+- Customize message format in `TelegramNotifier.java`
+
+</details>
+
+<details>
+<summary>Troubleshooting</summary>
+
+- Ensure the bot token and chat ID are correct
+- Check that the application is running
+- Verify the bot has necessary permissions in the group (if using group notifications)
+
+</details>
+
+For detailed setup instructions, refer to the Telegram Bot API documentation.
 
 ## Demo
 
